@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Ambiguity Estimator and Paraphraser</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Roboto Mono", monospace;
+            background-color: #a2cff2;
+            margin: 0;
+            padding: 20px;
+            font-size: 20pt;
+        }
+
+        .upload-instruction {
+            text-align: center;
+            font-size: 18pt; /* Adjust this number to whatever you like */
+            color: #34495e;  /* Optional: makes it a nice dark grey */
+            margin-top: 0;
+}
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: #a2cff2;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            font-family: "Roboto Mono", monospace;
+            font-weight: 400;
+            font-size: 70px;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #a2cff2;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 15pt;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+
+        
+
+        .score-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .high-score {
+            background: #ffcccc;
+            color: #cc0000;
+        }
+
+        .low-score {
+            background: #ccffcc;
+            color: #006600;
+        }
+
+        .status-tag {
+            font-size: 0.85em;
+            padding: 3px 6px;
+            border-radius: 4px;
+            background: #a2cff2;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Automated Ambiguity Estimator and Paraphraser</h1>
+        <p class="upload-instruction">Please upload an exam paper in PDF format and ensure that it contains selectable text.</p>
+
+        <form action="/analyze" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".pdf" required>
+            <button type="submit" style="background: #3498db; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer;">Analyze</button>
+        </form>
+
+        {% if results %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Original Question</th>
+                    <th>Score</th>
+                    <th>Justification</th>
+                    <th>Final Version</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in results %}
+                <tr>
+                    <td><strong>{{ row['ID'] }}</strong></td>
+                    <td>{{ row['Original Question'] }}</td>
+                    <td>
+                        <span class="score-badge {{ 'high-score' if row['Score'] > 20 else 'low-score' }}">
+                            {{ row['Score'] }}
+                        </span>
+                    </td>
+                    <td style="font-size: 0.9em; color: #666;">{{ row['Justification'] }}</td>
+                    <td style="color: #2980b9; font-weight: 500;">{{ row['Final Version'] }}</td>
+                    <td><span class="status-tag">{{ row['Status'] }}</span></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            {% if request.method == "POST" %}
+            <p style="text-align: center; color: red;">No questions were extracted. Please ensure the PDF has selectable text.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+
+</body>
+
+</html>

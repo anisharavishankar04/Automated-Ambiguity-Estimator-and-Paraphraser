@@ -1,0 +1,44 @@
+body {
+    background-color: #B2DAFA;
+    font-family: system-ui, sans-serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 40px;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+form {
+    margin: 20px 0;
+}
+
+button {
+    background: #4f46e5;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+th, td {
+    border: 1px solid #e5e7eb;
+    padding: 12px;
+    vertical-align: top;
+}
+
+th {
+    background: #eef2ff;
+}

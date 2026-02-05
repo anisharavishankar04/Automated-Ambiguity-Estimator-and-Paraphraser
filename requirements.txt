@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+jinja2
+python-multipart
+groq
+pymupdf
+pillow
+pytesseract
+sentence-transformers
+torch
+pandas
