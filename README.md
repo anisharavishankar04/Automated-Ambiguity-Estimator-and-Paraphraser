@@ -19,7 +19,11 @@ The system extracts questions from PDFs, assigns an **ambiguity score (0–100)*
 
 ---
 
-## Pipeline
+## System Architecture
+
+<p align="center">
+  <img src="Architecture.png" width="700">
+</p>
 
 
 ---
